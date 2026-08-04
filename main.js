@@ -94,8 +94,8 @@ function switchLang() {
 }
 
 // ---------- 图片与光影 ----------
-// 单一主题（晨雾蓝紫），图片每天随机换一张
-const IMAGES = ["assets/img/dawn-1.svg", "assets/img/dawn-2.svg"];
+// 单一主题（近黑 aurora-glass），图片每天随机换一张，光影跟随图片取色
+const IMAGES = ["assets/img/aurora-1.svg", "assets/img/aurora-2.svg"];
 
 const $ = (id) => document.getElementById(id);
 
@@ -128,11 +128,13 @@ async function sampleImage(src) {
   }
   if (!n) { r = d[0]; g = d[1]; b = d[2]; n = 1; }
   r /= n; g /= n; b /= n;
+  // 保持色相，把平均亮度归一化到亮部（深色图的光影也要是明亮的 accent 色）
   const avg = (r + g + b) / 3;
-  const boost = (v) => Math.round(v + (v - avg) * 0.9); // 向饱和方向拉伸
-  const R = Math.max(0, Math.min(255, boost(r)));
-  const G = Math.max(0, Math.min(255, boost(g)));
-  const B = Math.max(0, Math.min(255, boost(b)));
+  const scale = 200 / Math.max(avg, 1);
+  const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
+  const R = clamp(r * scale);
+  const G = clamp(g * scale);
+  const B = clamp(b * scale);
   return {
     glow: `rgba(${R}, ${G}, ${B}, 0.5)`,
     shadow: `rgba(${Math.round(R * 0.7)}, ${Math.round(G * 0.7)}, ${Math.round(B * 0.7)}, 0.3)`,
@@ -145,18 +147,20 @@ async function initTheme() {
   const src = randomImage();
   const img = $("hero-img");
   img.src = src;
-  // 图片加载完成后，把光影色换成图片自己的颜色
+  // 图片加载完成后，把光影/光斑色换成图片自己的颜色
   try {
     const col = await sampleImage(src);
     const s = document.body.style;
     s.setProperty("--glow", col.glow);
     s.setProperty("--shadow", col.shadow);
     s.setProperty("--accent", col.accent);
+    s.setProperty("--aurora-a", col.glow);
+    s.setProperty("--aurora-b", col.glow);
     document
       .querySelector('meta[name="theme-color"]')
       .setAttribute("content", col.hex);
   } catch {
-    // 取色失败（如网络问题）时保留默认光影
+    // 取色失败（如网络问题）时保留默认 aurora 光影
   }
 }
 
