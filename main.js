@@ -1,9 +1,7 @@
-// 小陈的网站 — 随机图片 + 从图片取色的光影 + 中英双语
+// Prismline — 深色 aurora-glass 页：中英双语 + 随机画布图 + 光影取色
 "use strict";
 
 // ---------- 安全存储 ----------
-// 隐私模式（Safari 无痕、部分 webview）下 localStorage 会抛异常，
-// 不处理会让整个脚本挂掉（按钮失灵）。用内存 fallback 兜底。
 const makeStore = (kind) => {
   const mem = {};
   try {
@@ -23,68 +21,246 @@ const sstore = makeStore("sessionStorage");
 
 // ---------- i18n ----------
 const I18N = {
-  zh: {
-    "site.title": "小陈的网站",
-    "site.desc": "小陈的网站 — 一个收集了小工具的个人主页",
-    "site.name": "小陈的网站",
-    "hero.alt": "今日图片",
-    "tools.title": "工具箱",
-    "tool.tx.name": "光码互传",
-    "tool.tx.desc": "扫码直接传文件",
-    "tool.fend.name": "fend 计算器",
-    "tool.fend.desc": "离线可用的计算器",
-    "footer": "© 2026 小陈 · 每次打开都是不一样的风景",
-    "lang.aria": "切换语言",
-    langLabel: "EN",
-  },
   en: {
-    "site.title": "Chen's Site",
-    "site.desc": "Chen's Site — a personal hub for small tools",
-    "site.name": "Chen's Site",
-    "hero.alt": "Photo of the day",
-    "tools.title": "TOOLS",
+    "site.title": "Prismline",
+    "site.desc": "Prismline — a premium dark aurora-glass SaaS marketing site. Ship a SaaS site that looks designed, not generated.",
+    "nav.features": "Features",
+    "nav.tools": "Tools",
+    "nav.showcase": "Showcase",
+    "nav.pricing": "Pricing",
+    "nav.signin": "Sign in",
+    "nav.cta": "Start free",
+    "hero.badgeNew": "NEW",
+    "hero.badgeText": "320+ aurora-glass website prompts",
+    "hero.line1": "Ship a SaaS site that",
+    "hero.line2": "looks designed, not generated",
+    "hero.sub1": "Prismline turns one prompt into a full glassmorphic marketing site:",
+    "hero.sub2": "hero, bento grid, pricing, and all, rendered live on an infinite canvas.",
+    "hero.sub3": "Real layouts, ready to ship.",
+    "hero.cta1": "Generate my site",
+    "hero.cta2": "See the canvas",
+    "mockup.generate": "Generate",
+    "mockup.export": "Export",
+    "logo.eyebrow": "Designed in Prismline, shipped by teams at",
+    "features.badge": "FEATURES",
+    "features.title": "Packed with the parts of a",
+    "features.titleAccent": "great SaaS site",
+    "features.f1t": "Prompt to layout",
+    "features.f1d": "Describe the page. Watch it become real components, wired and ready.",
+    "features.f2t": "Bento composer",
+    "features.f2d": "Drag, nest, and restack bento grids that stay pixel-perfect at any breakpoint.",
+    "features.f3t": "Glass tokens",
+    "features.f3d": "Frost, blur, and tint live in one token set. Change the mood everywhere at once.",
+    "features.f4t": "Responsive by default",
+    "features.f4d": "Every layout ships with breakpoints tuned for 1280, 768, and 390.",
+    "features.f5t": "Clean export",
+    "features.f5d": "Copy production-ready HTML, CSS, and tokens. No lock-in, no leftovers.",
+    "features.f6t": "Prompt library",
+    "features.f6d": "320+ prompts for landing pages, dashboards, and marketing sites.",
+    "tools.badge": "MY TOOLS",
+    "tools.title": "Made by me,",
+    "tools.titleAccent": "free to use",
     "tool.tx.name": "Optical Transfer",
-    "tool.tx.desc": "Send files via QR codes",
+    "tool.tx.desc": "Send files between phones via QR codes, no upload needed.",
+    "tool.tx.link": "Open the tool",
     "tool.fend.name": "fend Calculator",
-    "tool.fend.desc": "Offline calculator PWA",
-    "footer": "© 2026 Chen · A different view every visit",
+    "tool.fend.desc": "A clean offline calculator PWA that works everywhere.",
+    "tool.fend.link": "Open the tool",
+    "bento.eyebrow": "Live canvas",
+    "bento.title": "An",
+    "bento.titleAccent": "infinite canvas",
+    "bento.desc": "Every layout is a living document. Edit a token, watch every glass panel across the page update in real time.",
+    "bento.c1": "Frost, blur, and tint as design tokens",
+    "bento.c2": "Duotone accents derived from one hue pair",
+    "bento.c3": "One click from canvas to production",
+    "bento.t1t": "Duotone aurora themes",
+    "bento.t1d": "Pick a pair. Aqua to magenta, cyan to coral: every accent re-derives from it.",
+    "bento.t2t": "From idea to deploy",
+    "bento.t2d": "Prompt, refine, export, ship. Four steps, zero boilerplate.",
+    "pricing.badge": "PRICING",
+    "pricing.title": "Pick a plan,",
+    "pricing.titleAccent": "start shipping",
+    "pricing.mo": "/mo",
+    "pricing.popular": "POPULAR",
+    "pricing.p1n": "Starter",
+    "pricing.p1d": "For side projects and early experiments.",
+    "pricing.p1c1": "1 active project",
+    "pricing.p1c2": "5 exports per month",
+    "pricing.p1c3": "Community support",
+    "pricing.p1cta": "Start free",
+    "pricing.p2n": "Pro",
+    "pricing.p2d": "For teams shipping real products.",
+    "pricing.p2c1": "Unlimited projects",
+    "pricing.p2c2": "Unlimited exports",
+    "pricing.p2c3": "Private prompt library",
+    "pricing.p2c4": "Priority support",
+    "pricing.p2cta": "Go Pro",
+    "pricing.p3n": "Team",
+    "pricing.p3d": "For orgs scaling across many products.",
+    "pricing.p3c1": "Everything in Pro",
+    "pricing.p3c2": "5 seats included",
+    "pricing.p3c3": "Shared design tokens",
+    "pricing.p3cta": "Contact sales",
+    "cta.title": "Your next site is",
+    "cta.titleAccent": "one prompt away",
+    "cta.desc": "Start with a prompt, leave with production-ready glass. No template jank, no code cleanup.",
+    "cta.btn1": "Create your account",
+    "cta.btn2": "Browse the library",
+    "footer.desc": "Glassmorphic sites, generated from a single prompt.",
+    "footer.p1": "Product",
+    "footer.p1a": "Features",
+    "footer.p1b": "Pricing",
+    "footer.p1c": "Tools",
+    "footer.p1d": "Changelog",
+    "footer.p2": "Library",
+    "footer.p2a": "Landing pages",
+    "footer.p2b": "Dashboards",
+    "footer.p2c": "Marketing sites",
+    "footer.p2d": "Aurora glass",
+    "footer.p3": "Company",
+    "footer.p3a": "About",
+    "footer.p3b": "Blog",
+    "footer.p3c": "Careers",
+    "footer.p3d": "Contact",
+    "footer.copy": "© 2026 Prismline, Inc.",
+    "footer.legal1": "Privacy",
+    "footer.legal2": "Terms",
+    "footer.status": "All systems normal",
     "lang.aria": "Switch language",
     langLabel: "中文",
   },
+  zh: {
+    "site.title": "Prismline",
+    "site.desc": "Prismline — 深色极光玻璃拟态营销页：一句提示词，生成看起来像设计师手作的 SaaS 网站。",
+    "nav.features": "功能",
+    "nav.tools": "工具",
+    "nav.showcase": "展示",
+    "nav.pricing": "定价",
+    "nav.signin": "登录",
+    "nav.cta": "免费开始",
+    "hero.badgeNew": "新",
+    "hero.badgeText": "320+ 极光玻璃网站提示词",
+    "hero.line1": "一句提示词，做出",
+    "hero.line2": "看起来像设计师手作的网站",
+    "hero.sub1": "Prismline 把一句提示词变成完整的玻璃拟态营销站：",
+    "hero.sub2": "hero、bento 网格、定价，全都在无限画布上实时渲染。",
+    "hero.sub3": "真实布局，拿来即用。",
+    "hero.cta1": "生成我的网站",
+    "hero.cta2": "看看画布",
+    "mockup.generate": "生成",
+    "mockup.export": "导出",
+    "logo.eyebrow": "用 Prismline 设计，被这些团队发布",
+    "features.badge": "功能",
+    "features.title": "一个出色 SaaS 站该有的",
+    "features.titleAccent": "部件，全都齐了",
+    "features.f1t": "提示词到布局",
+    "features.f1d": "描述页面，立刻变成接好线的真实组件。",
+    "features.f2t": "Bento 编排器",
+    "features.f2d": "拖拽、嵌套、重组 bento 网格，任何断点下都像素级精准。",
+    "features.f3t": "玻璃令牌",
+    "features.f3d": "模糊、半透明、色调都收进一套令牌，改一处全局换氛围。",
+    "features.f4t": "默认响应式",
+    "features.f4d": "每个布局都自带 1280、768、390 三档断点。",
+    "features.f5t": "干净导出",
+    "features.f5d": "复制生产级 HTML、CSS 和令牌，无锁定、无残留。",
+    "features.f6t": "提示词库",
+    "features.f6d": "320+ 条落地页、仪表盘、营销站提示词。",
+    "tools.badge": "我的工具",
+    "tools.title": "我做的，",
+    "tools.titleAccent": "免费使用",
+    "tool.tx.name": "光码互传",
+    "tool.tx.desc": "手机之间用二维码传文件，无需上传。",
+    "tool.tx.link": "打开工具",
+    "tool.fend.name": "fend 计算器",
+    "tool.fend.desc": "随处可用的清爽离线计算器 PWA。",
+    "tool.fend.link": "打开工具",
+    "bento.eyebrow": "实时画布",
+    "bento.title": "一块",
+    "bento.titleAccent": "无限画布",
+    "bento.desc": "每个布局都是活文档。改一个令牌，全页的玻璃面板同步更新。",
+    "bento.c1": "模糊、半透明、色调都是设计令牌",
+    "bento.c2": "双色强调色从一对色相推导",
+    "bento.c3": "从画布到上线只需一键",
+    "bento.t1t": "双色极光主题",
+    "bento.t1d": "选一对颜色。青到品红、青到珊瑚，所有强调色都由它派生。",
+    "bento.t2t": "从想法到上线",
+    "bento.t2d": "提示、打磨、导出、发布。四步，零样板代码。",
+    "pricing.badge": "定价",
+    "pricing.title": "选个方案，",
+    "pricing.titleAccent": "开始交付",
+    "pricing.mo": "/月",
+    "pricing.popular": "最受欢迎",
+    "pricing.p1n": "入门版",
+    "pricing.p1d": "给个人项目和早期试验。",
+    "pricing.p1c1": "1 个进行中项目",
+    "pricing.p1c2": "每月 5 次导出",
+    "pricing.p1c3": "社区支持",
+    "pricing.p1cta": "免费开始",
+    "pricing.p2n": "专业版",
+    "pricing.p2d": "给真正交付产品的团队。",
+    "pricing.p2c1": "无限项目",
+    "pricing.p2c2": "无限导出",
+    "pricing.p2c3": "私有提示词库",
+    "pricing.p2c4": "优先支持",
+    "pricing.p2cta": "升级 Pro",
+    "pricing.p3n": "团队版",
+    "pricing.p3d": "给多产品扩张的组织。",
+    "pricing.p3c1": "包含专业版全部功能",
+    "pricing.p3c2": "含 5 个席位",
+    "pricing.p3c3": "共享设计令牌",
+    "pricing.p3cta": "联系销售",
+    "cta.title": "你的下一个网站，",
+    "cta.titleAccent": "只差一句提示词",
+    "cta.desc": "从一个提示开始，带走生产级玻璃页面。没有模板感，不用清理代码。",
+    "cta.btn1": "创建账号",
+    "cta.btn2": "浏览提示词库",
+    "footer.desc": "一句提示词，生成玻璃拟态网站。",
+    "footer.p1": "产品",
+    "footer.p1a": "功能",
+    "footer.p1b": "定价",
+    "footer.p1c": "工具",
+    "footer.p1d": "更新日志",
+    "footer.p2": "提示词库",
+    "footer.p2a": "落地页",
+    "footer.p2b": "仪表盘",
+    "footer.p2c": "营销站",
+    "footer.p2d": "极光玻璃",
+    "footer.p3": "公司",
+    "footer.p3a": "关于",
+    "footer.p3b": "博客",
+    "footer.p3c": "招聘",
+    "footer.p3d": "联系",
+    "footer.copy": "© 2026 Prismline",
+    "footer.legal1": "隐私",
+    "footer.legal2": "条款",
+    "footer.status": "一切系统正常",
+    "lang.aria": "切换语言",
+    langLabel: "EN",
+  },
 };
-const WEEK_ZH = ["日", "一", "二", "三", "四", "五", "六"];
-const WEEK_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-const MONTH_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
 let lang = store.get("chen-site-lang") ||
   (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
 
+const $ = (id) => document.getElementById(id);
+
 function t(key) {
-  return (I18N[lang] && I18N[lang][key]) || I18N.zh[key] || key;
+  return (I18N[lang] && I18N[lang][key]) || I18N.en[key] || key;
 }
 
-// 应用到所有 data-i18n / data-i18n-attr 元素 + 文档级文案
+// 应用到所有 data-i18n 元素（每个文案单元都是独立节点，无嵌套）
 function applyI18n() {
   document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
   document.title = t("site.title");
-  document
-    .querySelector('meta[name="description"]')
-    .setAttribute("content", t("site.desc"));
+  document.querySelector('meta[name="description"]').setAttribute("content", t("site.desc"));
   for (const el of document.querySelectorAll("[data-i18n]")) {
     el.textContent = t(el.dataset.i18n);
-  }
-  for (const el of document.querySelectorAll("[data-i18n-attr]")) {
-    for (const pair of el.dataset.i18nAttr.split(";")) {
-      const [attr, key] = pair.split(":");
-      el.setAttribute(attr, t(key));
-    }
   }
   const btn = $("lang-btn");
   if (btn) {
     btn.textContent = I18N[lang].langLabel;
     btn.setAttribute("aria-label", t("lang.aria"));
   }
-  renderDate(new Date());
 }
 
 function switchLang() {
@@ -93,13 +269,9 @@ function switchLang() {
   applyI18n();
 }
 
-// ---------- 图片与光影 ----------
-// 单一主题（近黑 aurora-glass），图片每天随机换一张，光影跟随图片取色
+// ---------- 随机画布图 + 光影取色 ----------
 const IMAGES = ["assets/img/aurora-1.svg", "assets/img/aurora-2.svg"];
 
-const $ = (id) => document.getElementById(id);
-
-// 每次打开都不同：也尽量避免与上次相同（sessionStorage 记忆）
 function randomImage() {
   const last = sstore.get("chen-site-last-img");
   let pick = IMAGES[Math.floor(Math.random() * IMAGES.length)];
@@ -108,7 +280,7 @@ function randomImage() {
   return pick;
 }
 
-// 从图片采样主色：只平均有彩度的像素，再提饱和得到光影色
+// 从图片采样主色：保持色相，亮度归一化到亮部（深色图光影也明亮）
 async function sampleImage(src) {
   const img = new Image();
   img.src = src;
@@ -122,13 +294,12 @@ async function sampleImage(src) {
   let r = 0, g = 0, b = 0, n = 0;
   for (let i = 0; i < d.length; i += 4) {
     const rr = d[i], gg = d[i + 1], bb = d[i + 2];
-    if (Math.max(rr, gg, bb) - Math.min(rr, gg, bb) > 24) { // 只取有彩度的像素
+    if (Math.max(rr, gg, bb) - Math.min(rr, gg, bb) > 24) {
       r += rr; g += gg; b += bb; n++;
     }
   }
   if (!n) { r = d[0]; g = d[1]; b = d[2]; n = 1; }
   r /= n; g /= n; b /= n;
-  // 保持色相，把平均亮度归一化到亮部（深色图的光影也要是明亮的 accent 色）
   const avg = (r + g + b) / 3;
   const scale = 200 / Math.max(avg, 1);
   const clamp = (v) => Math.max(0, Math.min(255, Math.round(v)));
@@ -137,55 +308,28 @@ async function sampleImage(src) {
   const B = clamp(b * scale);
   return {
     glow: `rgba(${R}, ${G}, ${B}, 0.5)`,
-    shadow: `rgba(${Math.round(R * 0.7)}, ${Math.round(G * 0.7)}, ${Math.round(B * 0.7)}, 0.3)`,
     accent: `rgb(${R}, ${G}, ${B})`,
     hex: "#" + [R, G, B].map((v) => v.toString(16).padStart(2, "0")).join(""),
   };
 }
 
-async function initTheme() {
+async function initCanvasPhoto() {
   const src = randomImage();
-  const img = $("hero-img");
+  const img = $("canvas-img");
+  if (!img) return;
   img.src = src;
-  // 图片加载完成后，把光影/光斑色换成图片自己的颜色
   try {
     const col = await sampleImage(src);
     const s = document.body.style;
-    s.setProperty("--glow", col.glow);
-    s.setProperty("--shadow", col.shadow);
-    s.setProperty("--accent", col.accent);
     s.setProperty("--aurora-a", col.glow);
     s.setProperty("--aurora-b", col.glow);
-    document
-      .querySelector('meta[name="theme-color"]')
-      .setAttribute("content", col.hex);
+    document.querySelector('meta[name="theme-color"]').setAttribute("content", col.hex);
   } catch {
-    // 取色失败（如网络问题）时保留默认 aurora 光影
+    // 取色失败时保留默认 aurora 光斑
   }
-}
-
-// ---------- 时钟 ----------
-function renderDate(now) {
-  const pad = (n) => String(n).padStart(2, "0");
-  $("clock").textContent = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
-  if (lang === "zh") {
-    $("date").textContent =
-      `${now.getFullYear()} 年 ${now.getMonth() + 1} 月 ${now.getDate()} 日 · 星期${WEEK_ZH[now.getDay()]}`;
-  } else {
-    $("date").textContent =
-      `${WEEK_EN[now.getDay()]}, ${MONTH_EN[now.getMonth()]} ${now.getDate()}, ${now.getFullYear()}`;
-  }
-  $("big-clock").textContent =
-    `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
-}
-
-function tick() {
-  renderDate(new Date());
 }
 
 // ---------- 启动 ----------
 $("lang-btn").addEventListener("click", switchLang);
 applyI18n();
-initTheme();
-tick();
-setInterval(tick, 1000);
+initCanvasPhoto();
