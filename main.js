@@ -1,9 +1,31 @@
 // 小陈的网站 — 随机图片 + 从图片取色的光影 + 中英双语
 "use strict";
 
+// ---------- 安全存储 ----------
+// 隐私模式（Safari 无痕、部分 webview）下 localStorage 会抛异常，
+// 不处理会让整个脚本挂掉（按钮失灵）。用内存 fallback 兜底。
+const makeStore = (kind) => {
+  const mem = {};
+  try {
+    const k = "chen-site-t";
+    window[kind].setItem(k, "1");
+    window[kind].removeItem(k);
+    return {
+      get: (key) => window[kind].getItem(key),
+      set: (key, val) => window[kind].setItem(key, val),
+    };
+  } catch {
+    return { get: (key) => (key in mem ? mem[key] : null), set: (key, val) => { mem[key] = val; } };
+  }
+};
+const store = makeStore("localStorage");
+const sstore = makeStore("sessionStorage");
+
 // ---------- i18n ----------
 const I18N = {
   zh: {
+    "site.title": "小陈的网站",
+    "site.desc": "小陈的网站 — 一个收集了小工具的个人主页",
     "site.name": "小陈的网站",
     "hero.alt": "今日图片",
     "tools.title": "工具箱",
@@ -15,9 +37,12 @@ const I18N = {
     "theme.dawn": "晨雾",
     "theme.sunset": "日落",
     "theme.forest": "森林",
-    langLabel: "EN", // 按钮显示目标语言
+    "lang.aria": "切换语言",
+    langLabel: "EN",
   },
   en: {
+    "site.title": "Xiao Chen's Site",
+    "site.desc": "Xiao Chen's Site — a personal hub for small tools",
     "site.name": "Xiao Chen's Site",
     "hero.alt": "Photo of the day",
     "tools.title": "TOOLS",
@@ -29,6 +54,7 @@ const I18N = {
     "theme.dawn": "Dawn",
     "theme.sunset": "Sunset",
     "theme.forest": "Forest",
+    "lang.aria": "Switch language",
     langLabel: "中文",
   },
 };
@@ -36,16 +62,20 @@ const WEEK_ZH = ["日", "一", "二", "三", "四", "五", "六"];
 const WEEK_EN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const MONTH_EN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-let lang = localStorage.getItem("chen-site-lang") ||
+let lang = store.get("chen-site-lang") ||
   (navigator.language && navigator.language.toLowerCase().startsWith("zh") ? "zh" : "en");
 
 function t(key) {
   return (I18N[lang] && I18N[lang][key]) || I18N.zh[key] || key;
 }
 
-// 应用到所有 data-i18n / data-i18n-attr 元素
+// 应用到所有 data-i18n / data-i18n-attr 元素 + 文档级文案
 function applyI18n() {
   document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+  document.title = t("site.title");
+  document
+    .querySelector('meta[name="description"]')
+    .setAttribute("content", t("site.desc"));
   for (const el of document.querySelectorAll("[data-i18n]")) {
     el.textContent = t(el.dataset.i18n);
   }
@@ -56,14 +86,17 @@ function applyI18n() {
     }
   }
   const btn = $("lang-btn");
-  if (btn) btn.textContent = I18N[lang].langLabel;
+  if (btn) {
+    btn.textContent = I18N[lang].langLabel;
+    btn.setAttribute("aria-label", t("lang.aria"));
+  }
   renderPhotoTag();
   renderDate(new Date());
 }
 
 function switchLang() {
   lang = lang === "zh" ? "en" : "zh";
-  localStorage.setItem("chen-site-lang", lang);
+  store.set("chen-site-lang", lang);
   applyI18n();
 }
 
@@ -88,10 +121,10 @@ function pickTheme() {
 // 每次打开都不同：也尽量避免与上次相同（sessionStorage 记忆）
 function randomImage(themeId) {
   const imgs = THEMES[themeId].images;
-  const last = sessionStorage.getItem("chen-site-last-img");
+  const last = sstore.get("chen-site-last-img");
   let pick = imgs[Math.floor(Math.random() * imgs.length)];
   if (imgs.length > 1 && pick === last) pick = imgs[(imgs.indexOf(pick) + 1) % imgs.length];
-  sessionStorage.setItem("chen-site-last-img", pick);
+  sstore.set("chen-site-last-img", pick);
   return pick;
 }
 
