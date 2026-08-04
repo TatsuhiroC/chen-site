@@ -97,7 +97,25 @@ a { color: inherit; text-decoration: none; }
     0 10px 28px -14px var(--shadow);
 }
 .site-name { font-weight: 600; font-size: 16px; letter-spacing: 0.04em; }
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
 .clock { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--ink-soft); letter-spacing: 0.06em; }
+.lang-btn {
+  font: 600 12px/1 -apple-system, "PingFang SC", sans-serif;
+  padding: 7px 13px;
+  border-radius: 99px;
+  border: 1px solid var(--line);
+  background: var(--glass-strong);
+  color: var(--ink);
+  cursor: pointer;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.35) inset, 0 6px 16px -8px var(--shadow);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.lang-btn:hover { transform: translateY(-1px); }
+.lang-btn:active { transform: translateY(0); }
 
 /* ============ 主视觉 ============ */
 .hero {
