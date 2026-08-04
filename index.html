@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="小陈的网站 — 一个收集了小工具的个人主页">
+  <meta name="theme-color" content="#e8ecf7">
+  <title>小陈的网站</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body data-theme="dawn">
+  <!-- 背景：主题色渐变 + 顶部光晕（光影层） -->
+  <div class="bg" aria-hidden="true">
+    <div class="glow"></div>
+  </div>
+
+  <!-- 顶部：站点名 + 时间 -->
+  <header class="topbar">
+    <span class="site-name">小陈的网站</span>
+    <time class="clock" id="clock">--:--</time>
+  </header>
+
+  <main>
+    <!-- 主视觉：照片（占位图）带光影 -->
+    <section class="hero">
+      <figure class="photo">
+        <img id="hero-img" src="assets/img/dawn-1.svg" alt="今日图片">
+        <div class="beam" aria-hidden="true"></div>
+        <figcaption class="photo-tag" id="photo-tag"></figcaption>
+      </figure>
+      <!-- 玻璃时间卡 -->
+      <div class="time-card">
+        <span class="date" id="date">—</span>
+        <span class="big-clock" id="big-clock">--:--:--</span>
+      </div>
+    </section>
+
+    <!-- 下滑：工具箱 -->
+    <section class="tools">
+      <h2>工具箱</h2>
+      <div class="tool-grid">
+        <a class="tool-card" href="https://tatsuhiroc.github.io/optical-transfer-pwa/"
+           target="_blank" rel="noopener">
+          <span class="tool-icon tx" aria-hidden="true"></span>
+          <h3>光码互传</h3>
+          <p>扫码直接传文件</p>
+        </a>
+        <a class="tool-card" href="#" id="tool-2">
+          <span class="tool-icon t2" aria-hidden="true"></span>
+          <h3 id="tool-2-name">第二个工具</h3>
+          <p id="tool-2-desc">待添加</p>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>© 2026 小陈 · 每次打开都是不一样的风景</footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

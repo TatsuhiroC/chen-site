@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice">
+<defs><filter id="b" x="-40%" y="-40%" width="180%" height="180%"><feGaussianBlur stdDeviation="60"/></filter></defs>
+<defs>
+  <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#e3eaf8"/><stop offset="1" stop-color="#c9d6f2"/>
+  </linearGradient>
+  <linearGradient id="shade" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#ffffff" stop-opacity="0.16"/><stop offset="1" stop-color="#000000" stop-opacity="0.05"/>
+  </linearGradient>
+</defs>
+<rect width="1600" height="900" fill="url(#sky)"/>
+<circle cx="420" cy="280" r="170" fill="rgba(255,255,255,0.9)" filter="url(#b)" opacity="0.75"/>
+<circle cx="420" cy="280" r="58" fill="#ffffff" opacity="0.9"/>
+<path d="M0 520 Q200 440 400 520 T800 520 T1200 520 T1600 520 L1600 900 L0 900 Z" fill="#b9c9ec"/>
+<path d="M0 640 Q200 560 400 640 T800 640 T1200 640 T1600 640 L1600 900 L0 900 Z" fill="#97aee0"/>
+<path d="M0 760 Q200 680 400 760 T800 760 T1200 760 T1600 760 L1600 900 L0 900 Z" fill="#7c93cd"/>
+<ellipse cx="800" cy="640" rx="760" ry="40" fill="#ffffff" opacity="0.2" filter="url(#b)"/>
+<rect width="1600" height="900" fill="url(#shade)"/></svg>
