@@ -1,4 +1,4 @@
-// Prismline — 深色 aurora-glass 页：中英双语 + 随机画布图 + 光影取色
+// 小陈 — 深色 aurora-glass 页：中英双语 + 随机画布图 + 光影取色
 "use strict";
 
 // ---------- 安全存储 ----------
@@ -22,19 +22,17 @@ const sstore = makeStore("sessionStorage");
 // ---------- i18n ----------
 const I18N = {
   en: {
-    "site.title": "Prismline",
-    "site.desc": "Prismline — a premium dark aurora-glass SaaS marketing site. Ship a SaaS site that looks designed, not generated.",
+    "site.title": "Chen's Site",
+    "site.desc": "Chen's Site — a dark aurora-glass personal hub with tools.",
+    "brand": "Chen",
     "nav.tools": "Tools",
     "nav.showcase": "Showcase",
-    "hero.badgeNew": "NEW",
-    "hero.badgeText": "320+ aurora-glass website prompts",
-    "hero.line1": "Ship a SaaS site that",
-    "hero.line2": "looks designed, not generated",
-    "hero.sub1": "Prismline turns one prompt into a full glassmorphic marketing site:",
+    "hero.sub1": "Chen turns one prompt into a full glassmorphic marketing site:",
     "hero.sub2": "hero, bento grid, pricing, and all, rendered live on an infinite canvas.",
     "hero.sub3": "Real layouts, ready to ship.",
     "mockup.generate": "Generate",
     "mockup.export": "Export",
+    "mockup.path": "Chen / canvas",
     "tools.badge": "MY TOOLS",
     "tools.title": "Made by me,",
     "tools.titleAccent": "free to use",
@@ -60,7 +58,7 @@ const I18N = {
     "footer.p2b": "Dashboards",
     "footer.p2c": "Marketing sites",
     "footer.p2d": "Aurora glass",
-    "footer.copy": "© 2026 Prismline, Inc.",
+    "footer.copy": "© 2026 Chen",
     "footer.legal1": "Privacy",
     "footer.legal2": "Terms",
     "footer.status": "All systems normal",
@@ -68,19 +66,17 @@ const I18N = {
     langLabel: "中文",
   },
   zh: {
-    "site.title": "Prismline",
-    "site.desc": "Prismline — 深色极光玻璃拟态营销页：一句提示词，生成看起来像设计师手作的 SaaS 网站。",
+    "site.title": "小陈",
+    "site.desc": "小陈的网站 — 深色极光玻璃个人主页与工具箱。",
+    "brand": "小陈",
     "nav.tools": "工具",
     "nav.showcase": "展示",
-    "hero.badgeNew": "新",
-    "hero.badgeText": "320+ 极光玻璃网站提示词",
-    "hero.line1": "一句提示词，做出",
-    "hero.line2": "看起来像设计师手作的网站",
-    "hero.sub1": "Prismline 把一句提示词变成完整的玻璃拟态营销站：",
+    "hero.sub1": "小陈把一句提示词变成完整的玻璃拟态营销站：",
     "hero.sub2": "hero、bento 网格、定价，全都在无限画布上实时渲染。",
     "hero.sub3": "真实布局，拿来即用。",
     "mockup.generate": "生成",
     "mockup.export": "导出",
+    "mockup.path": "小陈 / 画布",
     "tools.badge": "我的工具",
     "tools.title": "我做的，",
     "tools.titleAccent": "免费使用",
@@ -106,7 +102,7 @@ const I18N = {
     "footer.p2b": "仪表盘",
     "footer.p2c": "营销站",
     "footer.p2d": "极光玻璃",
-    "footer.copy": "© 2026 Prismline",
+    "footer.copy": "© 2026 小陈",
     "footer.legal1": "隐私",
     "footer.legal2": "条款",
     "footer.status": "一切系统正常",
