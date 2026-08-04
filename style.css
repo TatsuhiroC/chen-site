@@ -1,6 +1,5 @@
-/* ============ 主题（光影色系与图片配套） ============ */
+/* ============ 主题变量（单一主题：晨雾蓝紫） ============ */
 :root {
-  /* 默认 dawn 晨雾蓝紫 */
   --bg-1: #e9edf8;
   --bg-2: #d3def0;
   --glow: rgba(148, 168, 230, 0.5);
@@ -12,34 +11,6 @@
   --shadow: rgba(96, 116, 168, 0.28);
   --accent: #7d93d4;
   --beam: rgba(255, 255, 255, 0.5);
-}
-
-[data-theme="sunset"] {
-  --bg-1: #fdeee3;
-  --bg-2: #f4d6c0;
-  --glow: rgba(255, 158, 100, 0.45);
-  --ink: #5d3b2c;
-  --ink-soft: rgba(93, 59, 44, 0.6);
-  --glass: rgba(255, 255, 255, 0.2);
-  --glass-strong: rgba(255, 255, 255, 0.4);
-  --line: rgba(255, 255, 255, 0.6);
-  --shadow: rgba(204, 122, 74, 0.3);
-  --accent: #e89a68;
-  --beam: rgba(255, 240, 214, 0.55);
-}
-
-[data-theme="forest"] {
-  --bg-1: #e7f1ea;
-  --bg-2: #cfe3d6;
-  --glow: rgba(122, 192, 152, 0.42);
-  --ink: #2e4a3d;
-  --ink-soft: rgba(46, 74, 61, 0.6);
-  --glass: rgba(255, 255, 255, 0.18);
-  --glass-strong: rgba(255, 255, 255, 0.38);
-  --line: rgba(255, 255, 255, 0.6);
-  --shadow: rgba(80, 140, 108, 0.3);
-  --accent: #6fae8b;
-  --beam: rgba(240, 255, 244, 0.5);
 }
 
 /* ============ 基础 ============ */
@@ -158,21 +129,6 @@ a { color: inherit; text-decoration: none; }
       transparent 34%),
     linear-gradient(180deg, rgba(255, 255, 255, 0.14), transparent 42%);
   mix-blend-mode: soft-light;
-}
-.photo-tag {
-  position: absolute;
-  left: 18px;
-  bottom: 14px;
-  margin: 0;
-  padding: 6px 14px;
-  border-radius: 99px;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  color: var(--ink);
-  background: var(--glass-strong);
-  border: 1px solid var(--line);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
 }
 
 /* 玻璃时间卡 */

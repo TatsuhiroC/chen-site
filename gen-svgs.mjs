@@ -1,4 +1,4 @@
-// 生成占位图：3 主题 x 2 张，每张 1600x900 (16:9)
+// 生成占位图：单一主题（晨雾蓝紫）x 2 张，每张 1600x900 (16:9)
 import { writeFileSync, mkdirSync } from "node:fs";
 
 const V = (inner, w = 1600, h = 900) =>
@@ -24,7 +24,7 @@ const T = {
 };
 
 const out = {};
-for (const [name, c] of Object.entries(T)) {
+for (const [name, c] of Object.entries({ dawn: T.dawn })) {
   const [g1, g2] = c.sky;
   // 1: 山峦 + 雾
   out[`${name}-1`] = V(`
