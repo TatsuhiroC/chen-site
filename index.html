@@ -4,22 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="小陈的网站 — 一个收集了小工具的个人主页">
-  <meta name="theme-color" content="#e8ecf7">
+  <meta name="theme-color" content="#0b0f14">
   <title>小陈的网站</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400..700&family=Inter:wght@400..700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 背景：主题色渐变 + 顶部光晕（光影层） -->
+  <!-- 背景：近黑画布 + aurora 光斑 + 网格纹理 + 噪点 -->
   <div class="bg" aria-hidden="true">
-    <div class="glow"></div>
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+    <div class="blob blob-d"></div>
+    <div class="blob blob-e"></div>
+    <div class="blob blob-f"></div>
+    <div class="grid-tex"></div>
+    <div class="noise"></div>
+    <div class="vignette"></div>
   </div>
 
   <!-- 顶部：站点名 + 时间 + 语言切换 -->
-  <header class="topbar">
-    <span class="site-name" data-i18n="site.name">小陈的网站</span>
-    <div class="topbar-right">
-      <time class="clock" id="clock">--:--</time>
-      <button type="button" class="lang-btn" id="lang-btn" aria-label="Switch language">EN</button>
+  <header class="topbar-wrap">
+    <div class="topbar">
+      <span class="site-name duo-text" data-i18n="site.name">小陈的网站</span>
+      <div class="topbar-right">
+        <time class="clock" id="clock">--:--</time>
+        <button type="button" class="lang-btn" id="lang-btn" aria-label="切换语言">EN</button>
+      </div>
     </div>
   </header>
 
@@ -27,7 +40,7 @@
     <!-- 主视觉：照片（占位图）带光影 -->
     <section class="hero">
       <figure class="photo">
-        <img id="hero-img" src="assets/img/dawn-1.svg" data-i18n-attr="alt:hero.alt" alt="今日图片">
+        <img id="hero-img" src="assets/img/aurora-1.svg" data-i18n-attr="alt:hero.alt" alt="今日图片">
         <div class="beam" aria-hidden="true"></div>
       </figure>
       <!-- 玻璃时间卡 -->
