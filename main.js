@@ -1,7 +1,7 @@
-// 小陈的网站 — 每次打开随机主题 + 随机图片
+// 小陈的网站 — 随机图片 + 从图片取色的光影
 "use strict";
 
-// 主题定义：图片与光影共用同一色系
+// 主题只决定页面背景氛围；光影（光晕/投影/强调色）跟随图片本身的颜色
 const THEMES = {
   dawn:   { images: ["assets/img/dawn-1.svg",   "assets/img/dawn-2.svg"] },
   sunset: { images: ["assets/img/sunset-1.svg", "assets/img/sunset-2.svg"] },
@@ -29,15 +29,59 @@ function randomImage(themeId) {
   return pick;
 }
 
-function initTheme() {
+// 从图片采样主色：只平均有彩度的像素，再提饱和得到光影色
+async function sampleImage(src) {
+  const img = new Image();
+  img.src = src;
+  await img.decode();
+  const c = document.createElement("canvas");
+  c.width = 48;
+  c.height = 27;
+  const ctx = c.getContext("2d", { willReadFrequently: true });
+  ctx.drawImage(img, 0, 0, 48, 27);
+  const d = ctx.getImageData(0, 0, 48, 27).data;
+  let r = 0, g = 0, b = 0, n = 0;
+  for (let i = 0; i < d.length; i += 4) {
+    const rr = d[i], gg = d[i + 1], bb = d[i + 2];
+    if (Math.max(rr, gg, bb) - Math.min(rr, gg, bb) > 24) { // 只取有彩度的像素
+      r += rr; g += gg; b += bb; n++;
+    }
+  }
+  if (!n) { r = d[0]; g = d[1]; b = d[2]; n = 1; }
+  r /= n; g /= n; b /= n;
+  const avg = (r + g + b) / 3;
+  const boost = (v) => Math.round(v + (v - avg) * 0.9); // 向饱和方向拉伸
+  const R = Math.max(0, Math.min(255, boost(r)));
+  const G = Math.max(0, Math.min(255, boost(g)));
+  const B = Math.max(0, Math.min(255, boost(b)));
+  return {
+    glow: `rgba(${R}, ${G}, ${B}, 0.5)`,
+    shadow: `rgba(${Math.round(R * 0.7)}, ${Math.round(G * 0.7)}, ${Math.round(B * 0.7)}, 0.3)`,
+    accent: `rgb(${R}, ${G}, ${B})`,
+    hex: "#" + [R, G, B].map((v) => v.toString(16).padStart(2, "0")).join(""),
+  };
+}
+
+async function initTheme() {
   const themeId = pickTheme();
   document.body.dataset.theme = themeId;
+  const src = randomImage(themeId);
   const img = $("hero-img");
-  img.src = randomImage(themeId);
+  img.src = src;
   $("photo-tag").textContent = themeId;
-  document
-    .querySelector('meta[name="theme-color"]')
-    .setAttribute("content", getComputedStyle(document.body).getPropertyValue("--bg-1").trim());
+  // 图片加载完成后，把光影色换成图片自己的颜色
+  try {
+    const col = await sampleImage(src);
+    const s = document.body.style;
+    s.setProperty("--glow", col.glow);
+    s.setProperty("--shadow", col.shadow);
+    s.setProperty("--accent", col.accent);
+    document
+      .querySelector('meta[name="theme-color"]')
+      .setAttribute("content", col.hex);
+  } catch {
+    // 取色失败（如网络问题）时保留主题默认光影
+  }
 }
 
 // 时钟：顶部 HH:MM，主卡日期 + 完整时间
