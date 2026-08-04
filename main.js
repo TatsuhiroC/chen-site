@@ -34,26 +34,20 @@ const I18N = {
     "tool.fend.name": "fend 计算器",
     "tool.fend.desc": "离线可用的计算器",
     "footer": "© 2026 小陈 · 每次打开都是不一样的风景",
-    "theme.dawn": "晨雾",
-    "theme.sunset": "日落",
-    "theme.forest": "森林",
     "lang.aria": "切换语言",
     langLabel: "EN",
   },
   en: {
-    "site.title": "Xiao Chen's Site",
-    "site.desc": "Xiao Chen's Site — a personal hub for small tools",
-    "site.name": "Xiao Chen's Site",
+    "site.title": "Chen's Site",
+    "site.desc": "Chen's Site — a personal hub for small tools",
+    "site.name": "Chen's Site",
     "hero.alt": "Photo of the day",
     "tools.title": "TOOLS",
     "tool.tx.name": "Optical Transfer",
     "tool.tx.desc": "Send files via QR codes",
     "tool.fend.name": "fend Calculator",
     "tool.fend.desc": "Offline calculator PWA",
-    "footer": "© 2026 Xiao Chen · A different view every visit",
-    "theme.dawn": "Dawn",
-    "theme.sunset": "Sunset",
-    "theme.forest": "Forest",
+    "footer": "© 2026 Chen · A different view every visit",
     "lang.aria": "Switch language",
     langLabel: "中文",
   },
@@ -90,7 +84,6 @@ function applyI18n() {
     btn.textContent = I18N[lang].langLabel;
     btn.setAttribute("aria-label", t("lang.aria"));
   }
-  renderPhotoTag();
   renderDate(new Date());
 }
 
@@ -101,37 +94,18 @@ function switchLang() {
 }
 
 // ---------- 图片与光影 ----------
-const THEMES = {
-  dawn:   { images: ["assets/img/dawn-1.svg",   "assets/img/dawn-2.svg"] },
-  sunset: { images: ["assets/img/sunset-1.svg", "assets/img/sunset-2.svg"] },
-  forest: { images: ["assets/img/forest-1.svg", "assets/img/forest-2.svg"] },
-};
-const THEME_ORDER = Object.keys(THEMES);
+// 单一主题（晨雾蓝紫），图片每天随机换一张
+const IMAGES = ["assets/img/dawn-1.svg", "assets/img/dawn-2.svg"];
 
 const $ = (id) => document.getElementById(id);
-let currentTheme = null;
-
-// 主题选择：?theme=xx 固定（便于预览），否则随机
-function pickTheme() {
-  const wanted = new URLSearchParams(location.search).get("theme");
-  if (wanted && THEMES[wanted]) return wanted;
-  return THEME_ORDER[Math.floor(Math.random() * THEME_ORDER.length)];
-}
 
 // 每次打开都不同：也尽量避免与上次相同（sessionStorage 记忆）
-function randomImage(themeId) {
-  const imgs = THEMES[themeId].images;
+function randomImage() {
   const last = sstore.get("chen-site-last-img");
-  let pick = imgs[Math.floor(Math.random() * imgs.length)];
-  if (imgs.length > 1 && pick === last) pick = imgs[(imgs.indexOf(pick) + 1) % imgs.length];
+  let pick = IMAGES[Math.floor(Math.random() * IMAGES.length)];
+  if (IMAGES.length > 1 && pick === last) pick = IMAGES[(IMAGES.indexOf(pick) + 1) % IMAGES.length];
   sstore.set("chen-site-last-img", pick);
   return pick;
-}
-
-function renderPhotoTag() {
-  if (currentTheme && $("photo-tag")) {
-    $("photo-tag").textContent = t("theme." + currentTheme);
-  }
 }
 
 // 从图片采样主色：只平均有彩度的像素，再提饱和得到光影色
@@ -168,12 +142,9 @@ async function sampleImage(src) {
 }
 
 async function initTheme() {
-  currentTheme = pickTheme();
-  document.body.dataset.theme = currentTheme;
-  const src = randomImage(currentTheme);
+  const src = randomImage();
   const img = $("hero-img");
   img.src = src;
-  renderPhotoTag();
   // 图片加载完成后，把光影色换成图片自己的颜色
   try {
     const col = await sampleImage(src);
@@ -185,7 +156,7 @@ async function initTheme() {
       .querySelector('meta[name="theme-color"]')
       .setAttribute("content", col.hex);
   } catch {
-    // 取色失败（如网络问题）时保留主题默认光影
+    // 取色失败（如网络问题）时保留默认光影
   }
 }
 
