@@ -14,17 +14,20 @@
     <div class="glow"></div>
   </div>
 
-  <!-- 顶部：站点名 + 时间 -->
+  <!-- 顶部：站点名 + 时间 + 语言切换 -->
   <header class="topbar">
-    <span class="site-name">小陈的网站</span>
-    <time class="clock" id="clock">--:--</time>
+    <span class="site-name" data-i18n="site.name">小陈的网站</span>
+    <div class="topbar-right">
+      <time class="clock" id="clock">--:--</time>
+      <button type="button" class="lang-btn" id="lang-btn" aria-label="Switch language">EN</button>
+    </div>
   </header>
 
   <main>
     <!-- 主视觉：照片（占位图）带光影 -->
     <section class="hero">
       <figure class="photo">
-        <img id="hero-img" src="assets/img/dawn-1.svg" alt="今日图片">
+        <img id="hero-img" src="assets/img/dawn-1.svg" data-i18n-attr="alt:hero.alt" alt="今日图片">
         <div class="beam" aria-hidden="true"></div>
         <figcaption class="photo-tag" id="photo-tag"></figcaption>
       </figure>
@@ -37,26 +40,26 @@
 
     <!-- 下滑：工具箱 -->
     <section class="tools">
-      <h2>工具箱</h2>
+      <h2 data-i18n="tools.title">工具箱</h2>
       <div class="tool-grid">
         <a class="tool-card" href="https://tatsuhiroc.github.io/optical-transfer-pwa/"
            target="_blank" rel="noopener">
           <span class="tool-icon tx" aria-hidden="true"></span>
-          <h3>光码互传</h3>
-          <p>扫码直接传文件</p>
+          <h3 data-i18n="tool.tx.name">光码互传</h3>
+          <p data-i18n="tool.tx.desc">扫码直接传文件</p>
         </a>
         <a class="tool-card" href="https://tatsuhiroc.github.io/fend-offline/"
            target="_blank" rel="noopener">
           <span class="tool-icon t2" aria-hidden="true"></span>
-          <h3>fend 计算器</h3>
-          <p>离线可用的计算器</p>
+          <h3 data-i18n="tool.fend.name">fend 计算器</h3>
+          <p data-i18n="tool.fend.desc">离线可用的计算器</p>
         </a>
         <!-- 预留工具位：需要第 3、4 个工具时，复制上面的 .tool-card 结构追加即可 -->
       </div>
     </section>
   </main>
 
-  <footer>© 2026 小陈 · 每次打开都是不一样的风景</footer>
+  <footer data-i18n="footer">© 2026 小陈 · 每次打开都是不一样的风景</footer>
 
   <script src="main.js"></script>
 </body>
