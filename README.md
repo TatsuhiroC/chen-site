@@ -1,21 +1,26 @@
 # 我的小岛 (chen-site)
 
-一个放照片、灵感与离线小工具的个人角落。纸感清新风格（米白 + 珊瑚 + 衬线大标题），两个页面：首页 + 工具箱。
+小陈的个人项目入口。保留海岛图片、雾绿与珊瑚配色，将 Fend Offline 和 Optical Transfer 直接展示在同一个首页。
 
 **在线地址：https://tatsuhiroc.github.io/chen-site/**
 
-## 页面
+## 页面与布局
 
-- `index.html` 首页：玻璃质感 hero 文案 + 岛屿主视觉照片 + 工具箱入口
-- `toolbox.html` 工具箱：两个可离线运行的小工具（Fend 离线计算器、光学文件传输），工具数据由 `app.js` 渲染
+- `index.html`：海岛图片、简短介绍、两个项目的使用入口和源码链接。
+- 电脑：左侧图片，右侧介绍和两个项目卡片。
+- 手机：图片、介绍、两个紧凑卡片依次排列，按可用屏幕高度收紧间距。
+- 常见桌面和手机竖屏尺寸一屏展示；极小屏幕、横屏及放大文字时允许自然滚动，保持内容完整、按钮可操作。
+- `toolbox.html`：兼容旧链接，自动转到首页。
 
-## 修改工具
+项目入口直接写在 HTML 中，不依赖 JavaScript 或外部字体加载。
 
-编辑 `app.js` 顶部的 `tools` 数组：名称、简介、线上地址（`liveUrl`）、源码地址（`repoUrl`）都在这里改。
+## 修改项目
 
-## 替换主视觉图片
+编辑 `index.html` 中的两个 `.tool-card`：中文标题、英文名称、简短介绍、项目源码链接和打开工具链接。
 
-把图片存为 `assets/scan-islands.jpg`（横图，建议至少 1600×1100），页面自动裁切适配。无需改代码。
+## 主视觉图片
+
+原图位于 `assets/scan-islands.jpg`。通过 `styles.css` 中 `.island-view img` 的 `object-position` 调整裁切位置。
 
 ## 本地运行
 
@@ -28,14 +33,8 @@ python3 -m http.server 8000
 
 ## 部署
 
-`main` 分支为源码，`gh-pages` 分支为部署产物（GitHub Pages）：
-
-```bash
-git worktree add /tmp/chen-gh gh-pages
-cp -r index.html toolbox.html styles.css app.js assets .nojekyll /tmp/chen-gh/
-# commit + push gh-pages
-```
+`main` 分支为源码，`gh-pages` 分支为 GitHub Pages 部署产物。将 `index.html`、`toolbox.html`、`styles.css`、`assets` 和 `.nojekyll` 同步到部署分支后提交并推送。
 
 ## 技术
 
-原生 HTML / CSS / JavaScript，零运行时依赖。Google Fonts（Playfair Display + DM Mono + Manrope）按需加载。
+原生 HTML / CSS，零运行时依赖。使用系统字体、键盘焦点提示和减少动画偏好；项目按钮至少 44px 高。
