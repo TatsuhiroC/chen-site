@@ -22,6 +22,9 @@
           <img src="assets/scan-islands.jpg" alt="碧绿海水环绕的岛屿，山间与岸边坐落着城堡和小镇" fetchpriority="high" />
           <span class="image-kicker" aria-hidden="true">AN ISLAND OF SMALL THINGS</span>
           <figcaption><span class="image-title">从这里，去做点什么。</span><span class="image-note">一座小岛，两个通往想法的入口。</span></figcaption>
+          <a class="image-open" href="assets/scan-islands.jpg" aria-label="查看完整海岛图片" aria-haspopup="dialog" aria-controls="image-viewer">
+            <span class="image-expand" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M8 4H4v4m12-4h4v4M4 16v4h4m12-4v4h-4"/></svg></span>
+          </a>
         </figure>
         <div class="desk-content">
           <div class="intro">
@@ -60,5 +63,11 @@
       </main>
       <footer class="site-footer"><span class="footer-signature">MADE BY CHEN</span><span>小工具，让想法靠岸。</span></footer>
     </div>
+    <dialog id="image-viewer" class="image-dialog" aria-labelledby="image-viewer-title">
+      <h2 id="image-viewer-title" class="visually-hidden">完整海岛图片</h2>
+      <button class="image-close" type="button" autofocus aria-label="关闭完整图片"><span>关闭</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg></button>
+      <div class="image-stage"><img class="image-full" src="assets/scan-islands.jpg" alt="完整海岛原图：碧绿海水环绕的岛屿、城堡与小镇" /></div>
+    </dialog>
+    <script src="image-viewer.js" defer></script>
   </body>
 </html>
