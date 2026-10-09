@@ -12,7 +12,7 @@
 - 常见桌面和手机竖屏尺寸一屏展示；极小屏幕、横屏及放大文字时允许自然滚动，保持内容完整、按钮可操作。
 - `toolbox.html`：兼容旧链接，自动转到首页。
 
-项目入口直接写在 HTML 中，不依赖 JavaScript 或外部字体加载。
+项目入口直接写在 HTML 中，不依赖 JavaScript 或外部字体加载。手机图片区域适当加高；点击图片可在浮层中查看不裁切的完整原图。支持关闭按钮、点击图片外侧和 Esc 退出，焦点返回图片入口。动画尊重减少动态效果偏好。
 
 ## 修改项目
 
@@ -33,8 +33,8 @@ python3 -m http.server 8000
 
 ## 部署
 
-`main` 分支为源码，`gh-pages` 分支为 GitHub Pages 部署产物。将 `index.html`、`toolbox.html`、`styles.css`、`assets` 和 `.nojekyll` 同步到部署分支后提交并推送。
+`main` 分支为源码，`gh-pages` 分支为 GitHub Pages 部署产物。将 `index.html`、`toolbox.html`、`styles.css`、`image-viewer.js`、`assets` 和 `.nojekyll` 同步到部署分支后提交并推送。
 
 ## 技术
 
-原生 HTML / CSS，零运行时依赖。使用系统字体、键盘焦点提示和减少动画偏好；项目按钮至少 44px 高。
+原生 HTML / CSS / JavaScript，零运行时依赖。使用系统字体、键盘焦点提示和减少动画偏好；项目按钮至少 44px 高。`image-viewer.js` 仅负责原图浮层，关闭 JavaScript 后仍可访问项目及原图。
